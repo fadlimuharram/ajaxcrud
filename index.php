@@ -9,6 +9,6 @@ $db = new Crud();
 
 //$db->insert('tesajah(nama,kelas,npm)',[['azurescarlet','02','1531555']])->execute();
 
-print_r($db->select('*')->from('tesajah')->where([['id <','20'],['nama =','aa']])->execute());
+print_r($db->select('*')->from('tesajah')->where([['aa ='=>'gg'],['ss ='=>'hh'],['gg >'=>'jj']])->execute());
 
  ?>

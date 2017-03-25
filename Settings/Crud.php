@@ -6,6 +6,7 @@ class Crud extends Koneksi{
   public $kondisi;
   public $query = "";
   protected $setbindparam=[];//menampung untuk selanjutnya di lakukan bindparam
+  protected $setbindwhere=[];//menampung untuk selanjutnya di lakukan bindparam(where)
 
   public function select($data){
     $this->query = "SELECT " . $data;
@@ -20,12 +21,18 @@ class Crud extends Koneksi{
 
   public function where($str=array()){
     $this->query .= " WHERE ";
-
+    $loop = 0;
     foreach ($str as $keystr) {
       foreach ($keystr as $key => $value) {
+        $this->query .= $key . " ? ";
 
-          echo $value;
-      
+        array_push($this->setbindwhere,$value);
+
+        if ($loop<count($str)-1) {
+          $this->query .= " AND ";
+        }
+
+        $loop++;
       }
     }
     $this->setbindparam = $str;
@@ -122,7 +129,7 @@ class Crud extends Koneksi{
 
   public function execute(){
     if ($this->kondisi=='select') {
-      echo'<hr />';
+      print_r($this->setbindwhere);
       return $this->query;
     }elseif ($this->kondisi == 'update') {
       return $this->query;
